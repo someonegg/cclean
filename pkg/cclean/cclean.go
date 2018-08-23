@@ -40,12 +40,13 @@ func Clean(addr string) {
 
 	for address, tmpClient := range allClients {
 
+		logrus.Infof("Clean client ===> %s", address)
+
 		allChecks, err := tmpClient.Agent().Checks()
 		if err != nil {
 			logrus.Errorf("Failed to get client [%s] checks!", address)
+			continue
 		}
-
-		logrus.Infof("Clean client ===> %s", address)
 
 		for _, v := range allChecks {
 			if v.Status == "critical" {
