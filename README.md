@@ -3,15 +3,18 @@ A simple service clean tool for Consul.
 
 ## How to use?
 
-```sh
+``` sh
+➜  ~ cclean --help
+
+A simple service clean tool for Consul.
+
 Usage:
   cclean [CONSUL_ADDRESS] [flags]
 
 Flags:
-  -h, --help   help for cclean
-
-Example:
-  cclean 172.16.0.10:8500
+      --exclude string     exclude consul node ip (eg: 10.20.0.0/16)
+  -h, --help               help for cclean
+      --timeout duration   http timeout (default 3s)
 ```
 
 If you do not provide consul address default use environment variables.
@@ -20,7 +23,7 @@ If you do not provide consul address default use environment variables.
 
 Supported environment variables:
 
-```go
+``` go
 // HTTPAddrEnvName defines an environment variable name which sets
 // the HTTP address if there is no -http-addr specified.
 HTTPAddrEnvName = "CONSUL_HTTP_ADDR"
@@ -60,6 +63,12 @@ HTTPTLSServerName = "CONSUL_TLS_SERVER_NAME"
 // HTTPSSLVerifyEnvName defines an environment variable name which sets
 // whether or not to disable certificate checking.
 HTTPSSLVerifyEnvName = "CONSUL_HTTP_SSL_VERIFY"
+
+// GRPCAddrEnvName defines an environment variable name which sets the gRPC
+// address for consul connect envoy. Note this isn't actually used by the api
+// client in this package but is defined here for consistency with all the
+// other ENV names we use.
+GRPCAddrEnvName = "CONSUL_GRPC_ADDR"
 ```
 
-See also: https://github.com/hashicorp/consul/blob/4d658f34cfcb5c2e0b29ae5103e923872bddcaa7/api/api.go#L24
+See also: https://github.com/hashicorp/consul/blob/0e280b5a08bbdcf9a214ba2063b1eb850fba1824/api/api.go#L24
