@@ -72,3 +72,17 @@ GRPCAddrEnvName = "CONSUL_GRPC_ADDR"
 ```
 
 See also: https://github.com/hashicorp/consul/blob/0e280b5a08bbdcf9a214ba2063b1eb850fba1824/api/api.go#L24
+
+## Use with docker
+
+Build the docker image:
+
+``` sh
+$ docker build -t cclean .
+```
+
+Run cclean in a docker:
+
+``` sh
+$ docker run -e CONSUL_HTTP_ADDR=127.0.0.1 cclean --help
+```
