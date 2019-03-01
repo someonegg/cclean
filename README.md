@@ -75,14 +75,8 @@ See also: https://github.com/hashicorp/consul/blob/0e280b5a08bbdcf9a214ba2063b1e
 
 ## Use with docker
 
-Build the docker image:
-
-``` sh
-$ docker build -t cclean .
-```
-
 Run cclean in a docker:
 
 ``` sh
-$ docker run -e CONSUL_HTTP_ADDR=127.0.0.1 cclean --help
+$ docker run -e CONSUL_HTTP_ADDR=127.0.0.1 gozap/cclean --help
 ```
