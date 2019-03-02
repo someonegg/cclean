@@ -1,6 +1,6 @@
 FROM golang:alpine as build
 
-ENV GO111MODULE = on
+ENV GO111MODULE on
 
 RUN apk add --no-cache git \
     && go get github.com/gozap/cclean \
