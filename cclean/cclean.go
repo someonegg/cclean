@@ -26,7 +26,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func Clean(addr, exclude string, timeout time.Duration) {
+func Clean(addr, include, exclude string, timeout time.Duration) {
 
 	config := api.DefaultConfig()
 	if addr != "" {
@@ -52,6 +52,22 @@ func Clean(addr, exclude string, timeout time.Duration) {
 	allClients := map[string]*api.Client{}
 	for _, node := range allNodes {
 
+		if include != "" {
+			includeIP, err := sockaddr.NewIPAddr(include)
+			if err != nil {
+				logrus.Errorf("Failed to get parse include IP [%s]!", includeIP)
+				os.Exit(1)
+			}
+			currentIP, err := sockaddr.NewIPAddr(node.Address)
+			if err != nil {
+				logrus.Errorf("Failed to get parse consul node IP [%s]!", node.Address)
+				os.Exit(1)
+			}
+			if !includeIP.Contains(currentIP) {
+				continue
+			}
+		}
+
 		if exclude != "" {
 			excludeIP, err := sockaddr.NewIPAddr(exclude)
 			if err != nil {
@@ -64,7 +80,6 @@ func Clean(addr, exclude string, timeout time.Duration) {
 				os.Exit(1)
 			}
 			if excludeIP.Contains(currentIP) {
-				logrus.Warnf("Skip consul node IP ===> [%s]", node.Address)
 				continue
 			}
 		}

@@ -26,6 +26,7 @@ import (
 )
 
 var timeout time.Duration
+var include string
 var exclude string
 
 var rootCmd = &cobra.Command{
@@ -35,15 +36,16 @@ var rootCmd = &cobra.Command{
 A simple service clean tool for Consul.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 1 {
-			cclean.Clean(args[0], exclude, timeout)
+			cclean.Clean(args[0], include, exclude, timeout)
 		} else {
-			cclean.Clean("", exclude, timeout)
+			cclean.Clean("", include, exclude, timeout)
 		}
 	},
 }
 
 func init() {
 	rootCmd.PersistentFlags().DurationVar(&timeout, "timeout", 3*time.Second, "http timeout")
+	rootCmd.PersistentFlags().StringVar(&include, "include", "", "include consul node ip (eg: 10.20.0.0/16)")
 	rootCmd.PersistentFlags().StringVar(&exclude, "exclude", "", "exclude consul node ip (eg: 10.20.0.0/16)")
 }
 
