@@ -14,6 +14,7 @@ Usage:
 Flags:
       --exclude string     exclude consul node ip (eg: 10.20.0.0/16)
   -h, --help               help for cclean
+      --include string     include consul node ip (eg: 10.20.0.0/16)
       --timeout duration   http timeout (default 3s)
 ```
 
